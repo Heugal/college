@@ -47,6 +47,8 @@ The program itself consists of the following files:
   fsSearch.c  -    Takes a cluster number and finds the position in the FAT of the cluster
 		   Either returns a pointer to the position, or the numerical value of the
 		   FAT entry based on the entry# and offset
+  fsCloseDisk.c -  Closes and keeps current information on the disk
+  fsUnmount.c -    Unmounts the disk and wipes all information
   file_sys.h  -    header file which stores various data structures used for positioning and
 		   updating lists
 
@@ -54,22 +56,13 @@ The program itself consists of the following files:
   fsRead.c    -    reads from the disk and stores that info into a buffer
   fsWrite.c   -    writes from a buffer to the disk provided that the file is not too large
 		   (16K bytes)
-  fsCloseDisk.c -  Closes and keeps current infomation on the disk
-  fsUnmount.c   -  Unmounts the disk and wipes all information
+  fsRemoveFile -   removes data pertaining to a specific file in all related
+			clusters and marks the removed sectors as 'deleted' so that they
+			may be used again
+  a mini shell which accepts commands and executes the associated file (e.g.
+			'rm' would execute fsRemoveFile.c or 'cd' would execute
+			fsChangeDir.c)
 
-The latter 4 sections are still being worked on, but I have worked almost nonstop for the 
-past few weeks and I do not want to lose points, so I will send what I have completed as of
-right now and hopefully have the rest done as fast as I can write it.
-
-Progress on this lab was split into two sections. The first section consisted of mounting the
-file system and using the computations based on the size of the disk to create the FAT and
-sizes of the clusters etc. The second part consisted of reading values based on the position
-of data structures created and written to the filesystem. Each directory has a header which
-stores the name, time of creation, attributes, cluster number in the FAT and filesize. To find
-positining of various data members in the drive, I would used fseek and ftell to find values
-stored in the drive (FAT table, cluster number, etc) and calculate where in the file I would
-need to reposition the file pointer to in order to create the proper results. Afterwards 
-I would debug the file system to make sure that the directories were being created as they 
-were intended to. This required meticulous checking of file pointer positioning to make sure
-that every single value was correct, because if the file pointer was off by even one byte, 
-it would result in completely incorrect data.
+There are probably a few others that I can't think of right now, but these
+are the ones which I would like to complete in order to have a working file
+system.

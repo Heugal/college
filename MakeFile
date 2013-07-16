@@ -1,0 +1,10 @@
+CC = gcc
+CFLAGS = -I.
+DEPS = file_sys.h
+OBJ = fsMount.o sys_test.o fsSearch.o getTD.o fsCreateDir.o fsCreateFile.o fsChangeDir.o  fsOpen.o fsClose.o fsUnmount.o fsCloseDisk.o fsPrintDir.o
+
+%.o: %.c $(DEPS)
+	$(CC) -g -c -o $@ $< $(CFLAGS)
+
+practice_system: $(OBJ)
+	gcc -o $@ $^ $(CFLAGS)

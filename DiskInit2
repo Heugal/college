@@ -1,0 +1,3 @@
+#!/bin/bash
+make -f MakeFile
+dd if=/dev/zero of=Drive2MB bs=1 count=2000000
